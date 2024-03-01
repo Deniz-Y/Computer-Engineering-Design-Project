@@ -1,0 +1,30 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.CombinedViewModel
+@{
+    ViewData["Title"] = "Weekly Plan";
+}
+<div class="content-wrapper">
+    <div class="heading"><div class="heading3">Monday</div></div>
+</div>
+@Html.Partial("Daily", Model.Monday)
+<div class="content-wrapper">
+    <div class="heading"><div class="heading3">Tuesday</div></div>
+</div>
+@Html.Partial("Daily", Model.Tuesday)
+<div class="content-wrapper">
+    <div class="heading"><div class="heading3">Wednesday</div></div>
+</div>
+@Html.Partial("Daily", Model.Wednesday)
+<div class="content-wrapper">
+    <div class="heading"><div class="heading3">Thursday</div></div>
+</div>
+@Html.Partial("Daily", Model.Thursday)
+<div class="content-wrapper">
+    <div class="heading"><div class="heading3">Friday</div></div>
+</div>
+@Html.Partial("Daily", Model.Friday)
+
+<!--<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/SetCubicles/Weekly");
+    link.innerText = "Set Cubicles";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>-->

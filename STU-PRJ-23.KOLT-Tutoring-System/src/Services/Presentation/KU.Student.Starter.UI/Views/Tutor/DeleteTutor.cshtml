@@ -1,0 +1,89 @@
+﻿@model KU.Student.Starter.UI.Models.Tutor
+
+@{
+    ViewData["Title"] = "Delete Tutor";
+}
+
+<div class="form delete-form">
+    <div class="header">Delete Tutor</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Name</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Name</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Email</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Email</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Courses</label>
+        </div>
+        <div class="form-data">
+            @if (Model.Courses != null)
+            {
+                @foreach (var course in Model.Courses)
+                {
+                    <label>@course.Course.Code - @course.Course.Name</label>
+                }
+            }
+            else
+            {
+                <label>No courses found for this tutor.</label>
+            }
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Periods</label>
+        </div>
+        <div class="form-data">
+            @if (Model.Periods != null)
+            {
+                @foreach (var period in Model.Periods)
+                {
+                    <label>@period.Period.Day - @period.Period.StartHour - @period.Period.EndHour</label>
+                }
+            }
+            else
+            {
+                <label>No periods found for this tutor.</label>
+            }
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Weekly Hour</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.WeeklyHour</label>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        @using (Html.BeginForm("Delete", "Tutor", new { id = Model.Id }, FormMethod.Post))
+        {
+            <button type="submit" class="btn primary-button">Delete</button>
+            <a asp-action="Tutor" class="btn secondary-button">Cancel</a>
+        }
+    </div>
+
+</div>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Tutor/Tutor");
+    link.innerText = "Tutors";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

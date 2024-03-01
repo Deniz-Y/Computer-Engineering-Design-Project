@@ -1,0 +1,144 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.HeadTutorViewModel
+
+
+@{
+    ViewData["Title"] = "Assign Head Tutor";
+}
+
+<form class="form" method="post">
+    <div class="header">Assign New Head Tutor</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Course</label>
+        </div>
+        <div class="input-div flex-col">
+            @Html.DropDownListFor(m => m.CourseId, new SelectList(Model.CourseOptions, "Value", "Text"), "Select Course", new { @class = "input-box", id = "Course_DropDown" })
+            <span asp-validation-for="CourseId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Head Tutor</label>
+        </div>
+        <div class="input-div flex-col">
+            @Html.DropDownListFor(m => m.HeadTutorsTutorId, new SelectList(Model.TutorOptions, "Value", "Text"), "Select Head Tutor", new { @class = "input-box", id = "Tutor_DropDown" })
+            <span asp-validation-for="HeadTutorsTutorId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Tutors</label>
+        </div>
+        <div class="input-div flex-col">
+            @Html.ListBoxFor(m => m.TutorIds, new MultiSelectList(Model.TutorOptions, "Value", "Text"), new { @class = "input-box", multiple = "multiple", id = "Tutors_DropDown" })
+            <br />
+            <span asp-validation-for="Tutors" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="HeadTutor" class="btn secondary-button">Cancel</a>
+    </div>
+
+</form>
+
+@section Scripts{
+    <!--<script>$(document).ready(function () {
+            $('#Course_DropDown').select2({
+                placeholder: "Select Course",
+                allowClear: true,
+                minimumResultsForSearch: -1
+            });
+        });</script>
+
+    <script>$(document).ready(function () {
+            $('#Tutor_DropDown').select2({
+                placeholder: "Select Head Tutor",
+                allowClear: true,
+                minimumResultsForSearch: -1
+            });
+        });</script>-->
+
+    <script>$(document).ready(function () {
+            $('#Tutors_DropDown').select2({
+                placeholder: "Select Tutors",
+                allowClear: true
+            });
+        });</script>
+
+    <script>$(document).ready(function listUpdate() {
+            $('#Course_DropDown').change(function () {
+                var selectedCourseId = $(this).val();
+                var tutorDropDown = $('#Tutor_DropDown');
+                var tutorsDropDown = $('#Tutors_DropDown');
+                // Clear existing options
+                tutorDropDown.empty();
+                tutorsDropDown.empty();
+                // Add default option
+                tutorDropDown.append($('<option>', {
+                    value: '',
+                    text: 'Select Head Tutor'
+                }));
+                tutorsDropDown.append($('<option>', {
+                    value: '',
+                    text: 'Select Tutors'
+                }));
+
+                $.ajax({
+                    url: '/HeadTutor/GetFilteredTutors', // Replace with the actual URL that retrieves the filtered data
+                    type: 'GET',
+                    data: { courseId: selectedCourseId },
+                    success: function (data) {
+                        // Add new options
+                        $.each(data, function (index, item) {
+                            tutorDropDown.append($('<option>', {
+                                text: item.text,
+                                value: item.value
+                            }));
+                        });
+                        $.each(data, function (index, item) {
+                            tutorsDropDown.append($('<option>', {
+                                text: item.text,
+                                value: item.value
+                            }));
+                        });
+                    },
+                });
+            });
+        });</script>
+    <script>$(document).ready(function () {
+            var removedOption;
+
+            $('#Tutor_DropDown').change(function () {
+                var selectedHeadTutorId = $(this).val();
+                var tutorDropDown = $('#Tutors_DropDown');
+
+                if (removedOption != null) {
+                    // Add the removed option back to the select list
+                    tutorDropDown.append(removedOption);
+                    removedOption = null;
+                }
+
+                // Remove the option with the selected value
+                var toRemove = tutorDropDown.find('option[value="' + selectedHeadTutorId + '"]');
+                toRemove.remove();
+                removedOption = $('<option>', {
+                    value: toRemove.val(),
+                    text: toRemove.text()
+                });
+            });
+        });</script>
+
+    <script>var link = document.createElement("a");
+        link.setAttribute("class", "nav-link past-link");
+        link.setAttribute("href", "/HeadTutor/HeadTutor");
+        link.innerText = "Head Tutors";
+        document.getElementById("prev-page-breadcrumb").appendChild(link);</script>
+
+}
+

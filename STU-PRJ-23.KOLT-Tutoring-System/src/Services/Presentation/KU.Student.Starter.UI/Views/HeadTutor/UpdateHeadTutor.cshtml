@@ -1,0 +1,69 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.HeadTutorViewModel
+
+
+@{
+    ViewData["Title"] = "Edit Head Tutor";
+}
+<form class="form" method="post">
+    <div class="header">Edit Head Tutor Assignment</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Head Tutor Name</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="Name" name="Name" class="input-box" value="@Model.HeadTutor.Name" contenteditable="false" readonly />
+        </div>
+    </div>
+
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Head Tutor Email</label>
+        </div>        
+        <div class="input-div flex-col">
+            <input id="Email" name="Email" class="input-box" value="@Model.HeadTutor.Email" contenteditable="false" readonly />
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Head Tutor Course</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="Course" name="Course" class="input-box" value="@Model.CourseCode" contenteditable="false" readonly />
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Tutors</label>
+        </div>
+        <div class="input-div flex-col">
+            @Html.ListBoxFor(m => m.TutorIds, new MultiSelectList(Model.TutorOptions, "Value", "Text"), new { @class = "input-box select", multiple = "multiple", id = "Course_DropDown" })
+            <span asp-validation-for="Tutors" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="HeadTutor" class="btn secondary-button">Cancel</a>
+    </div>
+
+</form>
+
+@section Scripts{
+    <script>$(document).ready(function () {
+    $('#Course_DropDown').select2({
+        placeholder: "Select Tutors",
+        allowClear: true
+    });
+        });</script>
+
+    <script>var link = document.createElement("a");
+        link.setAttribute("class", "nav-link past-link");
+        link.setAttribute("href", "/HeadTutor/HeadTutor");
+        link.innerText = "Head Tutors";
+        document.getElementById("prev-page-breadcrumb").appendChild(link);</script>
+}
+

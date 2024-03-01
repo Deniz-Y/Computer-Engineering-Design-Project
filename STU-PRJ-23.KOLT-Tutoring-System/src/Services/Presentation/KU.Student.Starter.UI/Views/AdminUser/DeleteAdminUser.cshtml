@@ -1,0 +1,59 @@
+﻿@model KU.Student.Starter.UI.Models.AdminUser
+
+@{
+    ViewData["Title"] = "Delete Admin User";
+}
+
+<div class="form delete-form">
+    <div class="header">Delete Admin User</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Username</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Username</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Email</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Email</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>First Name</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.FirstName</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Last Name</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.LastName</label>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        @using (Html.BeginForm("Delete", "AdminUser", new { id = Model.Id }, FormMethod.Post))
+        {
+            <button type="submit" class="btn primary-button">Delete</button>
+            <a asp-action="AdminUser" class="btn secondary-button">Cancel</a>
+        }
+    </div>
+</div>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/AdminUser/AdminUser");
+    link.innerText = "Admin Users";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

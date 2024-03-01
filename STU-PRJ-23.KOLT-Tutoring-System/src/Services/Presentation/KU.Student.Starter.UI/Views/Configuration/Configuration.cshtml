@@ -1,0 +1,92 @@
+﻿@model KU.Student.Starter.UI.Models.Configuration
+@{
+    ViewData["Title"] = "Configuration";
+}
+
+<div class="form info-form">
+    <div class="header">
+        Current Configuration
+        @if (Model != null)
+        {
+            <a href="/Configuration/ConfigurationHistory" class="btn secondary-button" style="width:32px; height: 32px;"><img src="/assets/media/icons/history.svg" style="height:16px;" /></a>
+
+        }
+    </div>
+
+    @if (Model != null)
+    {
+        <div class="form-input">
+            <div class="form-label">
+                <label>Publish Schedule</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.PublishSchedule</label>
+            </div>
+        </div>
+        <div class="form-input">
+            <div class="form-label">
+                <label>Date</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.Date</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Time</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.Time</label>
+            </div>
+        </div>
+
+        @*<div class="form-input">
+                <div class="form-label">
+                    <label>Number of Cubicles</label>
+                </div>
+                <div class="form-data">
+                    <label>@Model.NumberOfCubicles</label>
+                </div>
+            </div>
+
+            <div class="form-input">
+                <div class="form-label">
+                    <label>Schedule Split Count</label>
+                </div>
+                <div class="form-data">
+                    <label>@Model.ScheduleSplitCount</label>
+                </div>
+            </div>*@
+        <div class="form-buttons">
+            <a href="/Configuration/EditConfiguration/@Model.Id" class="btn primary-button">Set</a>
+        </div>
+    }
+    else
+    {
+        <div class="form-buttons">
+            <a href="/Configuration/EditConfiguration" class="btn primary-button">Set</a>
+        </div>
+    }
+</div>
+
+@*@section Scripts {
+        <script>$(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'dd/mm/yy',
+            altFormat: 'yy-mm-dd'
+        });
+            });</script>
+
+        <script>$('.timepicker').timepicker({
+                timeFormat: 'HH:mm',
+                interval: 1,
+                minTime: '00:00',
+                maxTime: '23:59',
+                startTime: '12:00',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });</script>
+    }*@
+

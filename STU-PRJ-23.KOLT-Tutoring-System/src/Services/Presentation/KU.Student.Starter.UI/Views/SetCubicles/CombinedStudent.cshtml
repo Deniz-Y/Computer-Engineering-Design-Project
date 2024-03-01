@@ -1,0 +1,66 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.CombinedViewModel
+@{
+    ViewData["Title"] = "Weekly Plan";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KU.Student.DotNetStarterProject.UI</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #FFFFFF;
+            align-content: center;
+        }
+
+        .table {
+            border: 0.5px solid #201F2B;
+            border-radius: 0;
+        }
+
+        .table-row {
+            border: none;
+            padding: 0;
+        }
+
+        .table-row-item {
+            border: 0.5px solid #201F2B;
+            padding: 17px 10px 17px 20px;
+            margin: 0;
+            color: #201F2B;
+        }
+
+        .drag-drop-table.view-table .inner-cell {
+            border-color: none;
+            color: #201F2B;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="vertical-center-wrapper">
+        <h1>Monday</h1>
+        @Html.Partial("DailyPlanOnView", Model.Monday)
+    </div>
+    <div class="vertical-center-wrapper">
+        <h1>Tuesday</h1>
+        @Html.Partial("DailyPlanOnView", Model.Tuesday)
+    </div>
+    <div class="vertical-center-wrapper">
+        <h1>Wednesday</h1>
+        @Html.Partial("DailyPlanOnView", Model.Wednesday)
+    </div>
+    <div class="vertical-center-wrapper">
+        <h1>Thursday</h1>
+        @Html.Partial("DailyPlanOnView", Model.Thursday)
+    </div>
+    <div class="vertical-center-wrapper">
+        <h1>Friday</h1>
+        @Html.Partial("DailyPlanOnView", Model.Friday)
+    </div>
+</body>
+</html>

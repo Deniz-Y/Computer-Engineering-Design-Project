@@ -1,0 +1,144 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.TutorApplicationViewModel
+@{
+    ViewData["Title"] = "My Application";
+}
+<div class="form info-form">
+    <div class="header">My Application</div>
+
+    @if (Model != null)
+    {
+        <div class="form-input">
+            <div class="form-label">
+                <label>Status</label>
+            </div>
+            <div class="form-data">
+                @if (Model.Status == "Pending")
+                {
+                    <div class="pending-label">
+                        Pending
+                    </div>
+                }
+                else if (Model.Status == "Approved")
+                {
+                    <div class="approved-label">
+                        Approved
+                    </div>
+                }
+                else if (Model.Status == "Denied")
+                {
+                    <div class="denied-label">
+                        Denied
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Name</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.Name</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Email</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.Email</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>GPA</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.GPA</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Courses</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.Courses</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Periods</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.Periods</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Weekly Hour</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.WeeklyHour</label>
+            </div>
+        </div>
+
+        @if (Model.Status == "Pending")
+        {
+            <div class="form-buttons">
+                <a href="/IndividualTutorApplication/UpdateIndividualTutorApplication/@Model.Id" class="btn primary-button">Edit</a>
+                <a href="/IndividualTutorApplication/DeleteIndividualTutorApplication/@Model.Id" class="btn primary-button">Delete</a>
+            </div>
+        }
+
+    }
+    else
+    {
+        <div id="output"></div>
+        <div class="form-buttons">
+            <form action="/IndividualTutorApplication/AddIndividualTutorApplication">
+                <button class="btn primary-button" id="apply-btn" disabled>Apply</button>
+            </form>
+        </div>
+    }
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+            $.ajax({
+            url: '/IndividualTutorApplication/Appliable', // Replace with the appropriate URL for your controller and action
+                type: 'GET', // Use 'POST' if your action requires it
+                success: function (data) {
+                    // Update the 'output' element with the response data
+                    if(data===1){
+                        $('#output').html("You can apply now!");
+                        $('#apply-btn').prop('disabled', false);
+                    }
+                    else if (data === 0) {
+                        $('#output').html("There is no configuration set yet.");
+                        //$('#apply-btn').prop('disabled', true);
+                    }
+                    else if (data === -1) {
+                        $('#output').html("Today is not within application period.");
+                        //$('#apply-btn').prop('disabled', true);
+                    }
+                    else {
+                        $('#output').html("Some error occured.");
+                        //$('#apply-btn').prop('disabled', true);
+                    }
+                    
+                },
+                error: function () {
+                    // Handle any errors that occur during the AJAX request
+                    console.log('Error occurred.');
+                }
+            });
+        });
+
+</script>

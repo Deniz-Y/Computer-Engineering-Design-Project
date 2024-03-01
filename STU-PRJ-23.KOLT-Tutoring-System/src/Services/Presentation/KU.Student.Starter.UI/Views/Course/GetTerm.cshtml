@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Select Term";
+}
+
+<form asp-action="GetTerm" class="form" method="post">
+    <div class="header">Specify The Term</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Term</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="term" name="term" class="input-box" placeholder="Specify The Term" />
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Import</button>
+        <a asp-action="Course" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Course/Course");
+    link.innerText = "Courses";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

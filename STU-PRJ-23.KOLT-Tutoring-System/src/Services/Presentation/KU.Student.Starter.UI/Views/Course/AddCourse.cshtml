@@ -1,0 +1,41 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.CourseViewModel
+@{
+    ViewData["Title"] = "Add Course";
+}
+
+<form asp-action="AddCourse" class="form" method="post">
+    <div class="header">Add New Course</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Code</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="Code" name="Code" class="input-box" placeholder="Enter Code" value="@(Model != null ? Model.Code : "")" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Name</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="Name" name="Name" class="input-box" placeholder="Enter Name" value="@(Model != null ? Model.Name : "")" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="Course" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>
+    var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Course/Course");
+    link.innerText = "Courses";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);
+</script>

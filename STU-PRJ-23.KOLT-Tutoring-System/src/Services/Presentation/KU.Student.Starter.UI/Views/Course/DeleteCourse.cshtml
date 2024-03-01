@@ -1,0 +1,41 @@
+﻿@model KU.Student.Starter.UI.Models.Course
+
+@{
+    ViewData["Title"] = "Delete Course";
+}
+
+<div class="form delete-form">
+    <div class="header">Delete Course</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Code</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Code</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Name</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Name</label>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        @using (Html.BeginForm("Delete", "Course", new { id = Model.Id }, FormMethod.Post))
+        {
+            <button type="submit" class="btn primary-button">Delete</button>
+            <a asp-action="Course" class="btn secondary-button">Cancel</a>
+        }
+    </div>
+</div>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Course/Course");
+    link.innerText = "Courses";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

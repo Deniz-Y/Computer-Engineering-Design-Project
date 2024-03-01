@@ -1,0 +1,38 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.CouselyScheduleTable
+@{
+    ViewData["Title"] = Model.CourseCode;
+}
+<table class="table">
+    <thead>
+        <tr class="table-row table-header-row">
+            <td class="table-row-item"><div class="table-column-title">Day</div></td>
+            <td class="table-row-item"><div class="table-column-title">Time</div></td>
+            <td class="table-row-item"><div class="table-column-title">Place</div></td>
+            <td class="table-row-item"><div class="table-column-title">Tutor</div></td>
+            <td class="table-row-item"><div class="table-column-title">Cubicle No</div></td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var row in Model.SortedRows)
+        {
+            <tr class="table-row" id="rows">
+                <td class="table-row-item">
+                    @row.Day
+                </td>
+                <td class="table-row-item">
+                    @row.Time
+                </td>
+                <td class="table-row-item">
+                    @row.Place
+                </td>
+                <td class="table-row-item">
+                    @row.Tutor
+                </td>
+                <td class="table-row-item">
+                    @row.CubicleNo
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

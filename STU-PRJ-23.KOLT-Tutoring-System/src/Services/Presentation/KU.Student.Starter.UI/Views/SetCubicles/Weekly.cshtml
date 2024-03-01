@@ -1,0 +1,188 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.WeeklyViewModel
+@{
+    ViewData["Title"] = "Set Cubicles";
+}
+@{
+    var maxRow = new[] { Model.MondayHours.Count(), Model.TuesdayHours.Count(), Model.WednesdayHours.Count(), Model.ThursdayHours.Count(), Model.FridayHours.Count() }.Max();
+}
+<style>
+    .btn {
+        height: 48px;
+        width: 110px;
+        margin-inline: 5px;
+    }
+
+    .table-row-item {
+        width: 85px;
+    }
+
+    .row {
+        //width: 100%;
+        justify-content: center;
+        padding: 5px;
+    }
+</style>
+
+<div class="wrapper">
+    <div class="row">
+        <button id="Combined" class="btn primary-button" onclick="prevent()">Set All</button>
+    </div>
+    <div class="row">
+        <button id="Monday" class="btn primary-button" onclick="prevent()">Set Monday</button>
+        <button id="Tuesday" class="btn primary-button" onclick="prevent()">Set Tuesday</button>
+        <button id="Wednesday" class="btn primary-button" onclick="prevent()">Set Wednesday</button>
+        <button id="Thursday" class="btn primary-button" onclick="prevent()">Set Thursday</button>
+        <button id="Friday" class="btn primary-button" onclick="prevent()"> Set Friday</button>
+    </div>
+</div>
+<!--<table>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>-->
+<table class="table">
+    <thead>
+        <!--<tr class="table-row table-header-row">
+            <td class="table-header">
+                <div class="content-wrapper" style="height:60px">
+                    Do not forget to click on set cubicles after assigning new tutors to assign cubicles to tutors !
+                </div>
+            </td>
+        </tr>-->
+        <tr class="table-row">
+            <td class="table-row-item">Hours</td>
+            <td class="table-row-item">Monday</td>
+            <td class="table-row-item">Hours</td>
+            <td class="table-row-item">Tuesday</td>
+            <td class="table-row-item">Hours</td>
+            <td class="table-row-item">Wednesday</td>
+            <td class="table-row-item">Hours</td>
+            <td class="table-row-item">Thursday</td>
+            <td class="table-row-item">Hours</td>
+            <td class="table-row-item">Friday</td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < maxRow; i++) // create rows for each day
+        {
+            <tr class="table-row">
+                @if (i < @Model.MondayHours.Count())
+                {
+                    <td class="table-row-item">@Model.MondayHours.Keys.ElementAt(i)</td>
+                    <!-- add hour label in first cell -->
+
+                    <td class="table-row-item"><a href="@Url.Action("Tutor", "Tutor", new { searchBy = "Periods", searchString = string.Join(", ","Monday",Model.MondayHours.Keys.ElementAt(i))})">@Model.MondayHours[Model.MondayHours.Keys.ElementAt(i)]</a></td>
+                    <!-- create cells for Monday -->
+
+                }
+                else
+                {
+                    <td class="table-row-item"></td>
+                    <td class="table-row-item"></td>
+                }
+                @if (i < @Model.TuesdayHours.Count())
+                {
+                    <td class="table-row-item">@Model.TuesdayHours.Keys.ElementAt(i)</td>
+                    <!-- add hour label in first cell -->
+
+                    <td class="table-row-item"><a href="@Url.Action("Tutor", "Tutor", new { searchBy = "Periods", searchString = string.Join(", ","Tuesday",Model.TuesdayHours.Keys.ElementAt(i))})">@Model.TuesdayHours[Model.TuesdayHours.Keys.ElementAt(i)]</a></td>
+                    <!-- create cells for TuesdayHours -->
+
+                }
+                else
+                {
+                    <td class="table-row-item"></td>
+                    <td class="table-row-item"></td>
+                }
+                @if (i < @Model.WednesdayHours.Count())
+                {
+                    <td class="table-row-item">@Model.WednesdayHours.Keys.ElementAt(i)</td>
+                    <!-- add hour label in first cell -->
+
+                    <td class="table-row-item"><a href="@Url.Action("Tutor", "Tutor", new { searchBy = "Periods", searchString = string.Join(", ","Wednesday",Model.WednesdayHours.Keys.ElementAt(i))})">@Model.WednesdayHours[Model.WednesdayHours.Keys.ElementAt(i)]</a></td>
+                    <!-- create cells for WednesdayHours -->
+
+                }
+                else
+                {
+                    <td class="table-row-item"></td>
+                    <td class="table-row-item"></td>
+                }
+                @if (i < @Model.ThursdayHours.Count())
+                {
+                    <td class="table-row-item">@Model.ThursdayHours.Keys.ElementAt(i)</td>
+                    <!-- add hour label in first cell -->
+
+                    <td class="table-row-item"><a href="@Url.Action("Tutor", "Tutor", new { searchBy = "Periods", searchString = string.Join(", ","Thursday",Model.ThursdayHours.Keys.ElementAt(i))})">@Model.ThursdayHours[Model.ThursdayHours.Keys.ElementAt(i)]</a></td>
+                    <!-- create cells for ThursdayHours -->
+
+
+                }
+                else
+                {
+                    <td class="table-row-item"></td>
+                    <td class="table-row-item"></td>
+                }
+                @if (i < @Model.FridayHours.Count())
+                {
+                    <td class="table-row-item">@Model.FridayHours.Keys.ElementAt(i)</td>
+                    <!-- add hour label in first cell -->
+
+                    <td class="table-row-item"><a href="@Url.Action("Tutor", "Tutor", new { searchBy = "Periods", searchString = string.Join(", ","Friday",Model.FridayHours.Keys.ElementAt(i))})">@Model.FridayHours[Model.FridayHours.Keys.ElementAt(i)]</a></td>
+                    <!-- create cells for FridayHours -->
+
+                }
+                else
+                {
+                    <td class="table-row-item"></td>
+                    <td class="table-row-item"></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="warning-box">
+    <div class="header"><img src="/assets/media/icons/warning.svg" />Warning</div>
+    Do not forget to click on set cubicles after assigning new tutors to assign cubicles to tutors !
+</div>
+
+
+<script>document.getElementById("Monday").addEventListener("click", function () {
+        window.location.href = "/SetCubicles/Daily?day=Monday";
+    });
+    document.getElementById("Tuesday").addEventListener("click", function () {
+        window.location.href = "/SetCubicles/Daily?day=Tuesday";
+    });
+    document.getElementById("Wednesday").addEventListener("click", function () {
+        window.location.href = "/SetCubicles/Daily?day=Wednesday";
+    });
+    document.getElementById("Thursday").addEventListener("click", function () {
+        window.location.href = "/SetCubicles/Daily?day=Thursday";
+    });
+    document.getElementById("Friday").addEventListener("click", function () {
+        window.location.href = "/SetCubicles/Daily?day=Friday";
+    });
+    document.getElementById("Combined").addEventListener("click", function () {
+        window.location.href = "/SetCubicles/Combined";
+    });</script>
+
+<link rel="stylesheet" href="KU.Student.Starter.UI\wwwroot\css\site.css">
+
+<div id="overlay">
+    <div class="spinner"></div>
+</div>
+
+<script>function prevent() {
+        document.getElementById('overlay').style.display = 'block';
+    }</script>
+
+
+

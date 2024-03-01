@@ -1,0 +1,90 @@
+﻿@model KU.Student.Starter.UI.Models.Configuration
+@{
+    ViewData["Title"] = "Configuration Details";
+}
+
+<form class="form info-form">
+    <div class="header">Configuration Details</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Edited By</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.UserName</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Edited At</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.EditDateTime</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Publish Schedule</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.PublishSchedule</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Date</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Date</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Time</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Time</label>
+        </div>
+    </div>
+
+    @*@<div class="form-input">
+            <div class="form-label">
+                <label>Number of Cubicles</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.NumberOfCubicles</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Schedule Split Count</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.ScheduleSplitCount</label>
+            </div>
+        </div>*@
+
+    <div class="form-buttons">
+        <a href="/Configuration/ConfigurationHistory" class="btn primary-button">Back</a>
+    </div>
+
+</form>
+
+<script>
+    var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Configuration/ConfigurationHistory");
+    link.innerText = "Configuration History";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);
+
+    var link2 = document.createElement("a");
+    link2.setAttribute("class", "nav-link past-link");
+    link2.setAttribute("href", "/Configuration/Configuration");
+    link2.innerText = "Configuration";
+    document.getElementById("prev-page2-breadcrumb").appendChild(link2);
+</script>

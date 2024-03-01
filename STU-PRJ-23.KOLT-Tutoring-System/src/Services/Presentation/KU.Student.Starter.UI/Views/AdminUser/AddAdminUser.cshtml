@@ -1,0 +1,60 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.AdminUserViewModel
+
+@{
+    ViewData["Title"] = "Add Admin User";
+}
+
+<form asp-action="AddAdminUser" class="form" method="post">
+    <div class="header">Add New Admin User</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Username</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="Username" name="Username" class="input-box" placeholder="Enter Username" value="@(Model != null ? Model.Username : "")" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Email</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="Email" name="Email" class="input-box" placeholder="Enter Email" value="@(Model != null ? Model.Email : "")" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>First Name</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="FirstName" name="FirstName" class="input-box" placeholder="Enter First Name" value="@(Model != null ? Model.FirstName : "")" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Last Name</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="LastName" name="LastName" class="input-box" placeholder="Enter Last Name" value="@(Model != null ? Model.LastName : "")" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="AdminUser" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/AdminUser/AdminUser");
+    link.innerText = "Admin Users";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

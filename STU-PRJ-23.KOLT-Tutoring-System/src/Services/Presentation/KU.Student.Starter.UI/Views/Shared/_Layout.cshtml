@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KOLT Tutoring System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.css" />
+    <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.structure.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar" onmouseover="hoverOpenSidebar()" onmouseout="hoverCloseSidebar()">
+        <div class="sidebar-header">
+            <a id="sidebar-logo" asp-area="" asp-controller="" asp-action="">
+                <div class="sidebar-closed"><img src="/assets/media/images/kuhub-campus-logo-s.png" /></div>
+                <div class="sidebar-open"><img src="/assets/media/images/kuhub-campus-logo.png" /></div>
+            </a>
+            <button id="toggleButton" class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation" onclick="toggleSidebar()">
+                <img id="toggleImg" src="/assets/media/icons/double-right-arrow.svg" />
+            </button>
+        </div>
+        <nav id="sidebar-nav">
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link menu-item" href="/Home/Index"><img src="/assets/media/icons/kule.svg" /><div class="sidebar-open">Home</div></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-item" asp-area="" asp-controller="" asp-action=""><img src="/assets/media/icons/profile.svg" /><div class="sidebar-open">Profile</div></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-item" asp-area="" asp-controller="" asp-action=""><img src="/assets/media/icons/settings.svg" /><div class="sidebar-open">Settings</div></a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <div class="nav-link-header"><div class="sidebar-open">Student Pages</div></div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-item" asp-area="" asp-controller="SetCubicles" asp-action="CombinedStudent" target="_blank"><img src="/assets/media/icons/kule.svg" /><div class="sidebar-open">Cubicle Table</div></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-item" asp-area="" asp-controller="SetCubicles" asp-action="CombinedCoursely" target="_blank"><img src="/assets/media/icons/kule.svg" /><div class="sidebar-open">Schedule Table</div></a>
+                </li>
+                <li id="student-tutor-application" class="nav-item">
+                    <a class="nav-link menu-item" asp-area="" asp-controller="IndividualTutorApplication" asp-action="IndividualTutorApplication"><img src="/assets/media/icons/library.svg" /><div class="sidebar-open">Application</div></a>
+                </li>
+            </ul>
+
+            @if (User.Claims.Where(c => c.Type == "KsPermission").Select(c => c.Value).Contains("studentstart_headtutor"))
+            {
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="nav-link-header"><div class="sidebar-open">Head Tutor Pages</div></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-item" asp-area="" asp-controller="HeadTutor" asp-action="AssignedTutors"><img src="/assets/media/icons/profile.svg" /><div class="sidebar-open">My Tutors</div></a>
+                    </li>
+                </ul>
+            }
+
+            @if (User.Claims.Where(c => c.Type == "KsPermission").Select(c => c.Value).Contains("studentstart_tutor") || User.Claims.Where(c => c.Type == "KsPermission").Select(c => c.Value).Contains("studentstart_headtutor"))
+            {
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="nav-link-header"><div class="sidebar-open">Tutor Pages</div></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-item" asp-area="" asp-controller="Tutor" asp-action="IndividualTutorPage"><img src="/assets/media/icons/profile.svg" /><div class="sidebar-open">My Page</div></a>
+                    </li>
+                </ul>
+            }
+
+            @if (User.Claims.Where(c => c.Type == "KsPermission").Select(c => c.Value).Contains("studentstart_admin"))
+            {
+                <div class="navbar-nav">
+
+                    <div class="nav-item">
+                        <div class="nav-link-header"><div class="sidebar-open">Staff Pages</div></div>
+                    </div>
+
+                    <div>
+                        <div class="nav-item">
+                            <button onclick="toggleDropDown($('#usersMenu'), $('#usersArrow'))" class="nav-link dropdown"><img src="/assets/media/icons/profile.svg" /><div class="sidebar-open"><span class="menu-link">Users<i id="usersArrow" class="arrow down"></i></span></div></button>
+                        </div>
+                        <div class="sidebar-open">
+                            <ul class="nav-menu collapsed" id="usersMenu">
+                                <li class="nav-item">
+                                    <a class="nav-link menu-item" asp-area="" asp-controller="AdminUser" asp-action="AdminUser">Admin Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link menu-item" asp-area="" asp-controller="Tutor" asp-action="Tutor">Tutors</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link menu-item" asp-area="" asp-controller="HeadTutor" asp-action="HeadTutor">Head Tutors</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link menu-item" asp-area="" asp-controller="Course" asp-action="Course"><img src="/assets/media/icons/library.svg" /><div class="sidebar-open">Courses</div></a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link menu-item" asp-area="" asp-controller="TutorApplication" asp-action="TutorApplication"><img src="/assets/media/icons/library.svg" /><div class="sidebar-open">Tutor Applications</div></a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link menu-item" asp-area="" asp-controller="SetCubicles" asp-action="Weekly"><img src="/assets/media/icons/settings.svg" /><div class="sidebar-open">Set Cubicles</div></a>
+                    </div>
+
+                    <div>
+                        <div class="nav-item dropdown">
+                            <button onclick="toggleDropDown($('#settingsMenu'), $('#settingsArrow'))" class="nav-link dropdown"><img src="/assets/media/icons/settings.svg" /><div class="sidebar-open"><span class="menu-link">Settings<i id="settingsArrow" class="arrow down"></i></span></div></button>
+                        </div>
+
+                        <div class="sidebar-open">
+                            <ul class="nav-menu collapsed" id="settingsMenu">
+                                <li class="nav-item">
+                                    <a class="nav-link menu-item" asp-area="" asp-controller="Configuration" asp-action="Configuration">Configuration</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link menu-item" asp-area="" asp-controller="EditScheduleTexts" asp-action="ScheduleTexts">Schedule Texts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link menu-item" asp-area="" asp-controller="Cubicle" asp-action="Cubicle">Cubicles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link menu-item" asp-area="" asp-controller="Period" asp-action="Period">Periods</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </nav>
+    </div>
+
+    <!-- NAVBAR -->
+    <div id="navbar">
+        <nav class="navbar navbar-expand-sm">
+            <ul class="navbar-nav left-nav">
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="logout">Logout</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav right-nav">
+                <li class="nav-item">
+                    <a class="nav-link right-link" asp-area="" asp-controller="Home" asp-action="Index"><img src="/assets/media/icons/profile-navbar.svg" style="width: 34px;" /></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="flex-wrapper">
+
+        <!-- BREADCRUMB -->
+        <div id="breadcrumb">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link past-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link past-link" asp-area="" asp-controller="Home" asp-action="Index">KOLT Tutoring System</a>
+                </li>
+                <li id="prev-page2-breadcrumb"></li>
+                <li id="prev-page-breadcrumb"></li>
+                <li class="nav-item">
+                    <a class="nav-link current-link">@ViewData["title"]</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- MAIN -->
+        <main role="main">
+            @RenderBody()
+        </main>
+
+        <!-- FOOTER -->
+        <footer id="footer">
+            <!-- Footer Nav Row -->
+            <div id="footer-nav-row" class="row">
+                <div class="col-sm">
+                    <div class="footer-nav-title">About</div>
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.ku.edu.tr/en/explore/about/visitor-info/information-on-personal-data-processing/" target="_blank">Privacy Policy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://kocunikures.ku.edu.tr/en/about-us/frequently-asked-questions/" target="_blank">FAQs</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <div class="footer-nav-title">Help Center</div>
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://help.ku.edu.tr/ithelp/" target="_blank">help.ku.edu.tr</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://kocuniversity.atlassian.net/servicedesk/customer/user/login?destination=portals" target="_blank">trackit.ku.edu.tr</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <div class="footer-nav-title">Docs</div>
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.ku.edu.tr/en/faculty/policies-and-procedures/" target="_blank">Procedures</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <div class="footer-nav-title">KU on Social Media</div>
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.facebook.com/kocuniversity/" target="_blank"><img src="/assets/media/images/facebook.png" style="margin-bottom: 1px;" />Facebook</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.instagram.com/kocuniversity/" target="_blank"><img src="/assets/media/images/instagram.png" style="margin-bottom: 1px;" />Instagram</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.linkedin.com/company/kocuniversity/" target="_blank"><img src="/assets/media/images/linkedin.png" style="margin-bottom: 1px;" />LinkedIn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://twitter.com/kocuniversity" target="_blank"><img src="/assets/media/images/twitter.png" style="margin-bottom: 1px;" />Twitter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.youtube.com/KUKocUniversity" target="_blank"><img src="/assets/media/images/youtube.png" style="margin-bottom: 1px;" />Youtube</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <div class="footer-nav-title">KU Mobile App</div>
+                    <!-- TODO: change to image -->
+                    <ul class="navbar-nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://play.google.com/store/apps/details?id=tr.edu.ku.newmobile&hl=tr&gl=US&pli=1" target="_blank"><img src="/assets/media/images/google-play-download-logo.png" style="width: 116px;" /></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://apps.apple.com/tr/app/ko%C3%A7-%C3%BCniversitesi/id1555469897?l=tr" target="_blank"><img src="/assets/media/images/app-store-download-logo.png" style="width: 116px;" /></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Company Row -->
+            <div id="footer-company-row" class="container">
+                <a href="https://www.ku.edu.tr/" target="_blank"><img src="/assets/media/images/koc-uni-logo.png" /></a>
+                &copy; 2023 Koç University
+                <a id="cookie-policy" asp-area="" asp-controller="" asp-action="">Cookie Policy</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<div id="overlay">
+    <i class="spinner"></i>
+</div>
+
+<script>
+    function prevent() {
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    /* sidebar selected element */
+    /*const pages = document.querySelectorAll(".menu-item");
+
+    pages.forEach((item) => {
+        item.addEventListener('click', active_item);
+    })
+
+    function active_item() {
+        pages.forEach((item) => {
+            item.classList.remove('is-active');
+        });
+        this.classList.add('is-active');
+    }*/
+
+    function toggleDropDown(menu, arrow) {
+        menu.toggleClass('collapsed');
+        arrow.toggleClass('down up');
+    }
+
+    /*$(document).ready(function () {
+        $.ajax({
+            url: '/IndividualTutorApplication/Appliable', // Replace with the appropriate URL for your controller and action
+            type: 'GET', // Use 'POST' if your action requires it
+            success: function (data) {
+                // Update the 'output' element with the response data
+                if (data === 1) {
+                    document.getElementById('student-tutor-application').style.display = 'flex';
+            },
+            error: function () {
+                // Handle any errors that occur during the AJAX request
+                console.log('Error occurred.');
+            }
+        });
+    });*/
+</script>

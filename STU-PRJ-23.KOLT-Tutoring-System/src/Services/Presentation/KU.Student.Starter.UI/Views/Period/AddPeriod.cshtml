@@ -1,0 +1,45 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.PeriodViewModel
+@{
+    ViewData["Title"] = "Add Period";
+}
+<form asp-action="AddPeriod" class="form" method="post">
+    <div class="header">Add New Period</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Day</label>
+        </div>
+        <div class="input-div flex-col">
+            @Html.DropDownListFor(m => m.Day, new SelectList(Model.DayOptions, "Value", "Text"), "Select Day", new { @class = "input-box", id = "Day_DropDown" })
+            <span asp-validation-for="Day" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-input">
+        <div class="form-label">
+            <label>Start Hour</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="StartHour" name="StartHour" type="time" class="input-box" placeholder="hh:mm" value="@(Model != null ? Model.StartHour : "")" />
+            <span asp-validation-for="StartHour" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-input">
+        <div class="form-label">
+            <label>End Hour</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="EndHour" name="EndHour" type="time" class="input-box" placeholder="hh:mm" value="@(Model != null ? Model.EndHour : "")" />
+            <span asp-validation-for="EndHour" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="Period" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>var link = document.createElement("a");
+        link.setAttribute("class", "nav-link past-link");
+        link.setAttribute("href", "/Period/Period");
+        link.innerText = "Periods";
+        document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

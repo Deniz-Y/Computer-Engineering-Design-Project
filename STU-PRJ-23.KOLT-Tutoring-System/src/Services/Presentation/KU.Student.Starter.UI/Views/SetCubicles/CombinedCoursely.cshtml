@@ -1,0 +1,125 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.CombinedCourseViewModel
+@{
+    ViewData["Title"] = "Coursely Plan";
+}
+@{
+    var courseNum = Model.SortedCourselies.Count();
+    int edge = (int)Math.Ceiling(Math.Sqrt(courseNum));
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KU.Student.DotNetStarterProject.UI</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
+
+        .page {
+            padding: 24px;
+        }
+
+        a {
+            color: black;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            color: black;
+        }
+
+        .table-row {
+            border: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .table-row-item {
+            border: 0.5px solid #201F2B;
+            padding: 17px 10px 17px 20px;
+            margin: 0;
+            color: black;
+            font-weight: 400;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+        }
+
+            .table-row-item a {
+                font-weight: 500;
+            }
+        #courses-link-table .table-row-item {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <a id="top"></a>
+    <div class="page">
+        <img src="/assets/media/images/kolt-logo.png" style="width:100vw;" />
+        <div class="vertical-center-wrapper">
+            <div class="wrapper">
+                <h3>@Model.Texts.MainTitle</h3>
+            </div>
+            @if (Model.Publish)
+            {
+                <p>
+                    @Model.Texts.SubTitle
+                </p>
+                <table id="courses-link-table" class="table">
+                    <tbody>
+                        @for (int i = 0; i < edge; i++)
+                        {
+                            <tr class="table-row">
+                                @for (int j = 0; j < edge; j++)
+                                {
+                                    if (i * edge + j >= courseNum)
+                                    {
+                                        break;
+                                    }
+                                    <td class="table-row-item">
+                                        <a href="#@Model.SortedCourselies.ElementAt(i*edge+j).CourseCode">
+                                            @Model.SortedCourselies.ElementAt(i * edge + j).CourseCode
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p>
+                    @Model.Texts.BelowTable
+                </p>
+            }
+            else
+            {
+                @Model.Texts.NotPublishedText
+            }
+        </div>
+    </div>
+    @if (Model.Publish)
+    {
+        @foreach (var coursely in Model.SortedCourselies)
+        {
+            <div class="page">
+                <img src="/assets/media/images/kolt-logo.png" style="width:100vw;" />
+                <div class="vertical-center-wrapper">
+                    <div class="wrapper">
+                        <h3>@Model.Texts.PageTitle</h3>
+                    </div>
+                    <h3 id="@coursely.CourseCode">@coursely.CourseCode</h3>
+                    @Html.Partial("CourselyPlan", coursely)
+                    <a href="#top">@Model.Texts.GoToTop</a>
+                    <!--<a href="#top">Go to Top &#x25B2;</a>-->
+                </div>
+            </div>
+        }
+
+    }
+</body>
+</html>

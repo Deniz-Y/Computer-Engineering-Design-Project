@@ -1,0 +1,62 @@
+﻿@model KU.Student.Starter.UI.Models.Configuration
+@{
+    ViewData["Title"] = "Set Configuration";
+
+}
+
+<form asp-action="AddConfiguration" class="form" method="post">
+    <div class="header">Set Configuration</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Publish Schedule</label>
+        </div>
+        <div class="check-box">
+            <input asp-for="PublishSchedule" id="PublishSchedule" name="PublishSchedule" class="check-mark" type="checkbox" />
+        </div>
+        <!--<label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+            </label>-->
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Date</label>
+        </div>
+        <input id="Date" name="Date" type="date" class="input-box" placeholder="dd/mm/yy" value=@Model.Date min="01/01/1995" max="31/12/2100" />
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Time</label>
+        </div>
+        <input id="Time" name="Time" type="time" class="input-box" placeholder="hh:mm" value=@Model.Time />
+    </div>
+
+    @*<div class="form-input">
+            <div class="form-label">
+                <label>Number of Cubicles</label>
+            </div>
+            <input asp-for="NumberOfCubicles" id="NumberOfCubicles" name="NumberOfCubicles" class="input-box" placeholder="Enter Number of Cubicles" />
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Schedule Split Count</label>
+            </div>
+            <input asp-for="ScheduleSplitCount" id="ScheduleSplitCount" name="ScheduleSplitCount" class="input-box" placeholder="Enter Schedule Split Count" />
+        </div>*@
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="Configuration" class="btn secondary-button">Cancel</a>
+    </div>
+
+</form>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Configuration/Configuration");
+    link.innerText = "Configuration";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

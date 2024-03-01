@@ -1,0 +1,79 @@
+﻿@model KU.Student.Starter.UI.Models.EditScheduleTexts
+@{
+    ViewData["Title"] = "Set Schedule Texts";
+}
+
+<form asp-action="AddScheduleTexts" class="form" method="post">
+    <div class="header">Set Schedule Texts</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Main Title</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="MainTitle" name="MainTitle" class="input-box" placeholder="Enter Main Title" />
+            <span asp-validation-for="MainTitle" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Sub Title</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="SubTitle" name="SubTitle" class="input-box" placeholder="Enter Sub Title" />
+            <span asp-validation-for="SubTitle" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Below Table</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="BelowTable" name="BelowTable" class="input-box" placeholder="Enter Below Table" />
+            <span asp-validation-for="BelowTable" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Page Title</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="PageTitle" name="PageTitle" class="input-box" placeholder="Enter Page Title" />
+            <span asp-validation-for="PageTitle" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Go To Top</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="GoToTop" name="GoToTop" class="input-box" placeholder="Enter Go To Top" />
+            <span asp-validation-for="GoToTop" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Not Published Text</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="NotPublishedText" name="NotPublishedText" class="input-box" placeholder="Enter Not Published Text" />
+            <span asp-validation-for="NotPublishedText" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="ScheduleTexts" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/EditScheduleTexts/ScheduleTexts");
+    link.innerText = "Schedule Texts";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

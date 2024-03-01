@@ -1,0 +1,85 @@
+﻿@model KU.Student.Starter.UI.Models.Tutor
+
+@{
+    ViewData["Title"] = "Tutor Information";
+}
+<!--<div class="content-wrapper">
+    <div class="heading"><div class="heading3">Welcome, Model.Name!</div></div>
+</div>
+<div class="content-wrapper">-->
+<div class="form info-form">
+    <div class="header">Tutor Information</div>
+
+    @if (Model != null)
+        {
+        <div class="form-input">
+            <div class="form-label">
+                <label>Name</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.Name</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Email</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.Email</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Courses</label>
+            </div>
+            <div class="form-data">
+                @if (Model.Courses != null)
+                    {
+                    @foreach (var course in Model.Courses)
+                        {
+                        <label>@course.Course.Code - @course.Course.Name</label>
+                        }
+                    }
+                    else
+                    {
+                    <label>No courses found for this tutor.</label>
+                    }
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Periods</label>
+            </div>
+            <div class="form-data">
+                @if (Model.Periods != null)
+                    {
+                    @foreach (var period in Model.Periods)
+                        {
+                        <label>@period.Period.Day - @period.Period.StartHour - @period.Period.EndHour</label>
+                        }
+                    }
+                    else
+                    {
+                    <label>No periods found for this tutor.</label>
+                    }
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Weekly Hour</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.WeeklyHour</label>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <a href="/Tutor/UpdateIndividualTutor/@Model.Id" class="btn primary-button">Edit</a>
+        </div>
+        }
+    </div>
+<!--</div>-->

@@ -1,0 +1,51 @@
+﻿@model KU.Student.Starter.UI.Models.Cubicle
+
+@{
+    ViewData["Title"] = "Delete Cubicle";
+}
+
+<div class="form delete-form">
+    <div class="header">Delete Cubicle</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Cubicle Name</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.CubicleName</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Cubicle Number</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.CubicleNumber</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Cubicle Place</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.CubiclePlace</label>
+        </div>
+    </div>
+
+
+    <div class="form-buttons">
+        @using (Html.BeginForm("Delete", "Cubicle", new { id = Model.Id }, FormMethod.Post))
+        {
+            <button type="submit" class="btn primary-button">Delete</button>
+            <a asp-action="Cubicle" class="btn secondary-button">Cancel</a>
+        }
+    </div>
+</div>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Cubicle/Cubicle");
+    link.innerText = "Cubicles";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

@@ -1,0 +1,47 @@
+﻿@model KU.Student.Starter.UI.Models.Period
+
+@{
+    ViewData["Title"] = "Delete Period";
+}
+<div class="form delete-form">
+    <div class="header">Delete Period</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Day</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Day</label>
+        </div>
+    </div>
+    <div class="form-input">
+        <div class="form-label">
+            <label>Start Hour</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.StartHour</label>
+        </div>
+    </div>
+    <div class="form-input">
+        <div class="form-label">
+            <label>End Hour</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.EndHour</label>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        @using (Html.BeginForm("Delete", "Period", new { id = Model.Id }, FormMethod.Post))
+        {
+            <button type="submit" class="btn primary-button">Delete</button>
+            <a asp-action="Period" class="btn secondary-button">Cancel</a>
+        }
+    </div>
+</div>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Period/Period");
+    link.innerText = "Periods";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

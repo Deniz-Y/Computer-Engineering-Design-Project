@@ -1,0 +1,66 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.TutorApplicationViewModel
+@{
+    ViewData["Title"] = "Process Tutor Application";
+}
+
+<div class="form delete-form">
+    <div class="header">Approve or Deny Tutor Application</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Name</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Name</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Email</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Email</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Courses</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Courses</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Periods</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Periods</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Weekly Hour</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.WeeklyHour</label>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <a href="/TutorApplication/ConfirmTutorApplication/@Model.Id" class="btn primary-button">Approve</a>
+        <a href="/TutorApplication/DenyTutorApplication/@Model.Id" class="btn primary-button">Deny</a>
+        <a asp-action="TutorApplication" class="btn secondary-button">Cancel</a>
+    </div>
+
+</div>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/TutorApplication/TutorApplication");
+    link.innerText = "Tutor Applications";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

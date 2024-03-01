@@ -1,0 +1,59 @@
+﻿@model KU.Student.Starter.UI.Models.AdminUser
+
+@{
+    ViewData["Title"] = "Edit Admin User";
+}
+<form class="form" action="@Url.Action("EditAdminUser", "AdminUser", new { id = Model.Id })" method="post">
+    <div class="header">Edit Admin User</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Username</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="Username" name="Username" placeholder="Enter Username" value="@Model.Username" class="input-box" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Email</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="Email" name="Email" placeholder="Enter Email" value="@Model.Email" class="input-box" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>First Name</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="FirstName" name="FirstName" placeholder="Enter First Name" value="@Model.FirstName" class="input-box" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Last Name</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="LastName" name="LastName" placeholder="Enter Last Name" value="@Model.LastName" class="input-box" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="AdminUser" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/AdminUser/AdminUser");
+    link.innerText = "Admin Users";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

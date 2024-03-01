@@ -1,0 +1,49 @@
+@font-face {
+	font-family: "arboria";
+	src: url("arboria_400_italic.woff") format("woff"),url("arboria_400_italic.woff2") format("woff2"),url("arboria_400_italic.otf") format("opentype");
+	font-display: auto;
+	font-style: italic;
+	font-weight: 400;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "arboria";
+	src: url("arboria_400_normal.woff") format("woff"),url("arboria_400_normal.woff2") format("woff2"),url("arboria_400_normal.otf") format("opentype");
+	font-display: auto;
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "arboria";
+	src: url("arboria_500_normal.woff") format("woff"),url("arboria_500_normal.woff2") format("woff2"),url("arboria_500_normal.otf") format("opentype");
+	font-display: auto;
+	font-style: normal;
+	font-weight: 500;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "arboria";
+	src: url("arboria_700_normal.woff") format("woff"),url("arboria_700_normal.woff2") format("woff2"),url("arboria_700_normal.otf") format("opentype");
+	font-display: auto;
+	font-style: normal;
+	font-weight: 700;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "arboria";
+	src: url("arboria_700_italic.woff") format("woff"),url("arboria_700_italic.woff2") format("woff2"),url("arboria_700_italic.otf") format("opentype");
+	font-display: auto;
+	font-style: italic;
+	font-weight: 700;
+	font-stretch: normal;
+}
+@font-face {
+	font-family: "arboria";
+	src: url("arboria_900_normal.woff") format("woff"),url("arboria_900_normal.woff2") format("woff2"),url("arboria_900_normal.otf") format("opentype");
+	font-display: auto;
+	font-style: normal;
+	font-weight: 900;
+	font-stretch: normal;
+}
+.tk-arboria { font-family: "arboria",serif; }

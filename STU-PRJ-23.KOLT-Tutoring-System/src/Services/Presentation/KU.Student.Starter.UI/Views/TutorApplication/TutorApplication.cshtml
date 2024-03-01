@@ -1,0 +1,203 @@
+﻿@model IEnumerable<KU.Student.Starter.UI.Models.ViewModel.TutorApplicationViewModel>
+@{
+    ViewData["Title"] = "Tutor Applications";
+}
+<div class="table-pagination-container">
+    <table class="table">
+        <thead>
+            <tr class="table-row table-header-row">
+                <td class="table-header">
+                    <div class="table-heading">Tutor Applications</div>
+
+                    <div class="table-header-buttons">
+
+                        <button id="rejectAllButton" onclick="rejectSelected()" class="btn secondary-button" disabled>Reject</button>
+                        <button id="approveAllButton" onclick="approveSelected()" class="btn secondary-button" disabled>Approve</button>
+                        <button id="deleteAllButton" onclick="deleteSelected()" class="btn secondary-button" disabled>Delete</button>
+                        <div id="selected-number"></div>
+                        <button id="unselectButton" onclick="unselectAll()" class="input-box small" disabled>Unselect</button>
+                        <a href="/TutorApplication/TutorApplication" class="input-box small">Clear Filters</a>
+
+                        <form class="search-form" asp-controller="TutorApplication" asp-action="TutorApplication" method="get">
+                            <select class="input-box small" id="searchBy" name="searchBy" placeholder="Filters">
+                                <option disabled selected hidden>Filters</option>
+                                <option value="Name">Name</option>
+                                <option value="Email">Email</option>
+                                <option value="Courses">Courses</option>
+                                <option value="GPA">GPA</option>
+                                <option value="Periods">Periods</option>
+                                <option value="WeeklyHour">Weekly Hour</option>
+                            </select>
+
+                            <div class="input-box">
+                                <input class="search-input" type="text" placeholder="Find" name="searchString" />
+                            </div>
+                            <button type="submit" class="btn secondary-button">Search</button>
+                        </form>
+
+                        <a href="/TutorApplication/AddTutorApplication" class="btn secondary-button add-button">Add New</a>
+                        <a href="/TutorApplication/Export" class="btn primary-button">Export</a>
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="table-row table-header-row">
+                <th class="table-row-item" style="width:fit-content;"><input id="selectAll" name="selectAll" class="check-mark" type="checkbox" onclick="selectAll()" /></th>
+                <th class="table-row-item"><div class="table-column-title">Name</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item"><div class="table-column-title">Email</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item"><div class="table-column-title">Courses</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item" style="width:60px;"><div class="table-column-title">GPA</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item"><div class="table-column-title">Periods</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item"><div class="table-column-title">Weekly Hour</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item"><div class="table-column-title">Status</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item" style="width:200px;"><div class="table-column-title">Actions</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tutorApplication in Model)
+            {
+                <tr class="table-row">
+                    <td class="table-row-item" style="width:fit-content;"><input name=check-element value=@tutorApplication.Id class="check-mark check-element" type="checkbox" onchange="check()" /></td>
+                    <td class="table-row-item">@tutorApplication.Name</td>
+                    <td class="table-row-item">@tutorApplication.Email</td>
+                    <td class="table-row-item">@tutorApplication.Courses</td>
+                    <td class="table-row-item" style="width:60px;">@tutorApplication.GPA</td>
+                    <td class="table-row-item">@tutorApplication.Periods</td>
+                    <td class="table-row-item">@tutorApplication.WeeklyHour</td>
+                    <td class="table-row-item">
+                        @if (tutorApplication.Status == "Pending")
+                        {
+                            <div class="pending-label">
+                                Pending
+                            </div>
+                        }
+                        else if (tutorApplication.Status == "Approved")
+                        {
+                            <div class="approved-label">
+                                Approved
+                            </div>
+                        }
+                        else if (tutorApplication.Status == "Denied")
+                        {
+                            <div class="denied-label">
+                                Denied
+                            </div>
+                        }
+                    </td>
+                    <td class="table-row-item" style="width:200px;">
+                        @if (tutorApplication.Status == "Pending")
+                        {
+                            <a href="/TutorApplication/ApproveOrDeny/@tutorApplication.Id" class="btn secondary-button"><img src="/assets/media/icons/plus.svg" style="height:14px;" /></a>
+                        }
+                        <a href="/TutorApplication/DeleteTutorApplication/@tutorApplication.Id" class="btn secondary-button"><img src="/assets/media/icons/trash.svg" style="height:18px;" /></a>
+                        <a href="/TutorApplication/UpdateTutorApplication/@tutorApplication.Id" class="btn secondary-button"><img src="/assets/media/icons/write.svg" style="height:16px;" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="pagination-row">
+        <div class="row-num-box">
+            <!-- Show Numbers Of Rows -->
+            <select onchange="maxRowNum()" name="state" id="maxRows">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+        <!-- Start Pagination -->
+        <div class='pagination-container'>
+            <nav class="pagination">
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteSelected() {
+        // Get the selected checkboxes
+        var selectedItems = $('.check-element:checked');
+
+        // Create an array to store the selected item values
+        var selectedIds = [];
+
+        // Iterate through the selected checkboxes and retrieve their values
+        selectedItems.each(function () {
+            selectedIds.push($(this).val());
+        });
+
+        // Send an AJAX request to the server to delete the selected items
+        $.ajax({
+            url: '/TutorApplication/DeleteSelected',
+            type: 'POST',
+            data: { ids: selectedIds },
+            success: function (response) {
+                // Handle the success response from the server
+                // For example, you can update the UI or display a success message
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response from the server
+            }
+        });
+    }
+
+    function approveSelected() {
+        // Get the selected checkboxes
+        var selectedItems = $('.check-element:checked');
+
+        // Create an array to store the selected item values
+        var selectedIds = [];
+
+        // Iterate through the selected checkboxes and retrieve their values
+        selectedItems.each(function () {
+            selectedIds.push($(this).val());
+        });
+
+        // Send an AJAX request to the server to delete the selected items
+        $.ajax({
+            url: '/TutorApplication/ApproveSelected',
+            type: 'POST',
+            data: { ids: selectedIds },
+            success: function (response) {
+                // Handle the success response from the server
+                // For example, you can update the UI or display a success message
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response from the server
+            }
+        });
+    }
+
+    function rejectSelected() {
+        // Get the selected checkboxes
+        var selectedItems = $('.check-element:checked');
+
+        // Create an array to store the selected item values
+        var selectedIds = [];
+
+        // Iterate through the selected checkboxes and retrieve their values
+        selectedItems.each(function () {
+            selectedIds.push($(this).val());
+        });
+
+        // Send an AJAX request to the server to delete the selected items
+        $.ajax({
+            url: '/TutorApplication/RejectSelected',
+            type: 'POST',
+            data: { ids: selectedIds },
+            success: function (response) {
+                // Handle the success response from the server
+                // For example, you can update the UI or display a success message
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response from the server
+            }
+        });
+    }
+</script>

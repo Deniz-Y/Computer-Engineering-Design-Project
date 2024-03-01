@@ -1,0 +1,75 @@
+﻿@model KU.Student.Starter.UI.Models.EditScheduleTexts
+@{
+    ViewData["Title"] = "Schedule Texts";
+}
+
+<div class="form info-form">
+    <div class="header">Schedule Texts</div>
+
+    @if (Model != null)
+    {
+        <div class="form-input">
+            <div class="form-label">
+                <label>Main Title</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.MainTitle</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Sub Title</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.SubTitle</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Below Table</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.BelowTable</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Page Title</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.PageTitle</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Go To Top</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.GoToTop</label>
+            </div>
+        </div>
+
+        <div class="form-input">
+            <div class="form-label">
+                <label>Not Published Text</label>
+            </div>
+            <div class="form-data">
+                <label>@Model.NotPublishedText</label>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <a href="/EditScheduleTexts/EditScheduleTexts" class="btn primary-button">Set</a>
+        </div>
+    }
+    else
+    {
+        <div class="form-buttons">
+            <a href="/EditScheduleTexts/AddScheduleTexts" class="btn primary-button">Set</a>
+        </div>
+    }
+</div>

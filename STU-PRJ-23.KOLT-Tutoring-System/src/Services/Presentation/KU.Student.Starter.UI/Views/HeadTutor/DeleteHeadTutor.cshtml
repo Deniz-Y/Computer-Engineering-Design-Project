@@ -1,0 +1,51 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.HeadTutorViewModel
+
+@{
+    ViewData["Title"] = "Delete Head Tutor";
+}
+
+<div class="form delete-form">
+    <div class="header">Delete Head Tutor</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Head Tutor Course</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.CourseCode</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Head Tutor Name</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.HeadTutor.Name</label>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Tutors of Head Tutor</label>
+        </div>
+        <div class="form-data">
+            <label>@Model.Tutors</label>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        @using (Html.BeginForm("Delete", "HeadTutor", new { id = Model.Id }, FormMethod.Post))
+        {
+            <button type="submit" class="btn primary-button">Delete</button>
+            <a asp-action="HeadTutor" class="btn secondary-button">Cancel</a>
+        }
+    </div>
+
+</div>
+
+<script>var link = document.createElement("a");
+        link.setAttribute("class", "nav-link past-link");
+        link.setAttribute("href", "/HeadTutor/HeadTutor");
+        link.innerText = "Head Tutors";
+        document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

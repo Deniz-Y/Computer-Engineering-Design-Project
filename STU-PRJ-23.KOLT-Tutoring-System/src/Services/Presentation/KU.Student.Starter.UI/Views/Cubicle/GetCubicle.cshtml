@@ -1,0 +1,48 @@
+﻿@model KU.Student.Starter.UI.Models.Cubicle
+
+@{
+    ViewData["Title"] = "Edit Cubicle";
+}
+<form class="form" action="@Url.Action("EditCubicle", "Cubicle", new { id = Model.Id })" method="post">
+    <div class="header">Edit Cubicle</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Cubicle Name</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="CubicleName" name="CubicleName" placeholder="Enter Cubicle Name" value="@Model.CubicleName" class="input-box" />
+            <span asp-validation-for="CubicleName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-input">
+        <div class="form-label">
+            <label>Cubicle Number</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="CubicleNumber" name="CubicleNumber" placeholder="Enter Cubicle Number" value="@Model.CubicleNumber" class="input-box" />
+            <span asp-validation-for="CubicleNumber" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Cubicle Place</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="CubiclePlace" name="CubiclePlace" placeholder="Enter Cubicle Place" value="@Model.CubiclePlace" class="input-box" />
+            <span asp-validation-for="CubiclePlace" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="Cubicle" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Cubicle/Cubicle");
+    link.innerText = "Cubicles";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

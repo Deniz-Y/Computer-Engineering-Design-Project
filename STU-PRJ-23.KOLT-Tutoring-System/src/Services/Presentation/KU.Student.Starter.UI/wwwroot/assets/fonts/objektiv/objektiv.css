@@ -1,0 +1,44 @@
+﻿@font-face {
+    font-family: "objektiv-mk2";
+    src: url("Objektiv_Mk2_W03_Light.ttf") format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 400; /*TODO*/
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "objektiv-mk2";
+    src: url("Objektiv_Mk2_W03_Regular.ttf") format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 500; /*TODO*/
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "objektiv-mk2";
+    src: url("Objektiv_Mk2_Medium.ttf") format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 600; /*TODO*/
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "objektiv-mk2";
+    src: url("Objektiv_Mk2_Bold.ttf") format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 700; /*TODO*/
+    font-stretch: normal;
+}
+
+@font-face {
+    font-family: "objektiv-mk2";
+    src: url("Objektiv_Mk2_W03_Black.ttf") format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 800; /*TODO*/
+    font-stretch: normal;
+}

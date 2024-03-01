@@ -1,0 +1,111 @@
+@model IEnumerable<KU.Student.Starter.UI.Models.ViewModel.HeadTutorViewModel>
+@{
+    ViewData["Title"] = "Head Tutors";
+}
+<div class="table-pagination-container">
+    <table class="table">
+        <thead>
+            <tr class="table-row table-header-row">
+                <td class="table-header">
+                    <div class="table-heading">Head Tutors</div>
+
+                    <div class="table-header-buttons">
+
+                        <button id="deleteAllButton" onclick="deleteSelected()" class="btn secondary-button" disabled>Delete</button>
+                        <div id="selected-number"></div>
+                        <button id="unselectButton" onclick="unselectAll()" class="input-box small" disabled>Unselect</button>
+                        <a href="/HeadTutor/HeadTutor" class="input-box small">Clear Filters</a>
+
+                        <form class="search-form" asp-controller="HeadTutor" asp-action="HeadTutor" method="get">
+                            <select class="input-box small" id="searchBy" name="searchBy" placeholder="Filters">
+                                <option disabled selected hidden>Filters</option>
+                                <option value="Course Code">Course Code</option>
+                                <option value="Head Tutor">Head Tutor</option>
+                                <!--<option value="Tutor">Tutor</option>-->
+                            </select>
+
+                            <div class="input-box">
+                                <input class="search-input" type="text" placeholder="Find" name="searchString" />
+                            </div>
+                            <button type="submit" class="btn secondary-button">Search</button>
+                        </form>
+
+                        <a href="/HeadTutor/AssignHeadTutor" class="btn secondary-button add-button">Add New</a>
+                        <a href="/HeadTutor/Export" class="btn primary-button">Export</a>
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="table-row table-header-row">
+                <th class="table-row-item" style="width:fit-content;"><input id="selectAll" name="selectAll" class="check-mark" type="checkbox" onclick="selectAll()" /></th>
+                <th class="table-row-item"><div class="table-column-title">Course</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item"><div class="table-column-title">Head Tutor</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item"><div class="table-column-title">Tutors</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+                <th class="table-row-item"><div class="table-column-title">Actions</div><button class="table-order-button"><img src="/assets/media/icons/dropdown-arrow.svg" /></button></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var htutor in Model)
+            {
+                <tr class="table-row">
+                    <td class="table-row-item" style="width:fit-content;"><input name=check-element value=@htutor.Id class="check-mark check-element" type="checkbox" onchange="check()" /></td>
+                    <td class="table-row-item">@htutor.CourseCode</td>
+                    <td class="table-row-item">@htutor.HeadTutor.Name</td>
+                    <td class="table-row-item">@htutor.Tutors</td>
+                    <td class="table-row-item">
+                        <a href="/HeadTutor/DeleteHeadTutor/@htutor.Id" class="btn secondary-button"><img src="/assets/media/icons/trash.svg" style="height:18px;" /></a>
+                        <a href="/HeadTutor/UpdateHeadTutor/@htutor.Id" class="btn secondary-button"><img src="/assets/media/icons/write.svg" style="height:16px;" /></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="pagination-row">
+        <div class="row-num-box">
+            <!-- Show Numbers Of Rows -->
+            <select onchange="maxRowNum()" name="state" id="maxRows">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+        <!-- Start Pagination -->
+        <div class='pagination-container'>
+            <nav class="pagination">
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteSelected() {
+        // Get the selected checkboxes
+        var selectedItems = $('.check-element:checked');
+
+        // Create an array to store the selected item values
+        var selectedIds = [];
+
+        // Iterate through the selected checkboxes and retrieve their values
+        selectedItems.each(function () {
+            selectedIds.push($(this).val());
+        });
+
+        // Send an AJAX request to the server to delete the selected items
+        $.ajax({
+            url: '/HeadTutor/DeleteSelected',
+            type: 'POST',
+            data: { ids: selectedIds },
+            success: function (response) {
+                // Handle the success response from the server
+                // For example, you can update the UI or display a success message
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                // Handle the error response from the server
+            }
+        });
+    }
+</script>

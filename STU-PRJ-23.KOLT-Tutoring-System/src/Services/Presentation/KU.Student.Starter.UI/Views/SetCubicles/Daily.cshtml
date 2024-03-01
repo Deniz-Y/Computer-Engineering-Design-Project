@@ -1,0 +1,206 @@
+﻿@model KU.Student.Starter.UI.Models.ViewModel.SessionCubicleTableViewModel
+@{
+    ViewData["Title"] = Model.Day;
+}
+
+@{
+    int cubnum = Model.Cubicles.Count();
+    int pernum = 0;
+}
+
+<table class="table drag-drop-table" id="drag-drop-table">
+    <tr class="table-row" draggable="false">
+        <td class="table-row-item">
+            Session Hours&#8594
+            <br />
+            Cubicle No&#8595
+        </td>
+        @foreach (var session in Model.Periods.OrderBy(p => p.StartHour))
+        {
+            // if (session.Day == "Friday")
+            //{
+            <td class="table-row-item">@session.StartHour - @session.EndHour</td>
+            pernum++;
+            // }
+
+        }
+    </tr>
+
+    @foreach (var cub in Model.Cubicles.OrderBy(c => c.CubicleNumber))
+    {
+        <tr class="table-row" id="rows">
+            <td class="table-row-item">
+                @cub.CubicleName
+            </td>
+            @foreach (var session in Model.Periods.OrderBy(p =>
+                                         {
+                                             switch (p.Day)
+                                             {
+                                                 case "Monday":
+                                                     return 1;
+                                                 case "Tuesday":
+                                                     return 2;
+                                                 case "Wednesday":
+                                                     return 3;
+                                                 case "Thursday":
+                                                     return 4;
+                                                 case "Friday":
+                                                     return 5;
+                                                 default:
+                                                     return int.MaxValue; // any other value will be sorted last
+                                             }
+                                         }).ThenBy(c => c.StartHour))
+            {
+                //if (session.Day == "Friday")
+                //{
+                <td class="table-row-item cell" id="@cub.Id" itemid="@session.Id">
+                    @foreach (var pct in Model.PeriodCubicles)
+                    {
+                        if (pct.CubicleId == cub.Id)
+                        {
+                            if (pct.PeriodTutor.PeriodId == session.Id)
+                            {
+                                <div id="@pct.PeriodCubicleId" class="inner-cell" draggable="true">@pct.PeriodTutor.Tutor.Name<br />@string.Join(", ", Model.Courses.Where(c => (Model.TutorCourses.Where(tc => tc.TutorId == pct.PeriodTutor.TutorId).Select(tc => tc.CourseId).ToList().Contains(c.Id))).Select(c => c.Code))</div>
+                            }
+                        }
+                    }
+                </td>
+                //}
+
+            }
+        </tr>
+
+    }
+</table>
+
+<div id="overlay">
+    <i class="fas fa-spinner fa-spin"></i>
+</div>
+
+
+
+<script>document.getElementById('overlay').style.display = 'none';
+
+    checkCollisions();
+    var sourceElement = null;
+
+    function handleDragStart(e) {
+        sourceElement = this;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', this.innerHTML);
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+
+    function handleDragEnter(e) {
+        this.classList.add('over');
+    }
+
+    function handleDragLeave(e) {
+        this.classList.remove('over');
+    }
+
+    function handleDrop(e) {
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+
+        if (sourceElement != this) {
+            this.appendChild(sourceElement);
+        }
+        return false;
+    }
+
+    function handleDragEnd(e) {
+        var cols = document.querySelectorAll('#drag-drop-table .cell');
+        [].forEach.call(cols, function (col) {
+            col.classList.remove('over');
+        });
+        document.getElementById('overlay').style.display = 'block';
+
+        var periodCubicleId = sourceElement.getAttribute('id');
+        var cubicleId = this.getAttribute('id');
+        var sessionId = this.getAttribute('itemid');
+
+        $.ajax({
+            type: 'GET',
+            url: '/SetCubicles/SwipeCubicles',
+            data: {
+                pcId: periodCubicleId,
+                cubicleId: cubicleId,
+                periodId: sessionId
+            },
+            success: function () {
+                console.log('Cubicles swiped successfully.');
+                setTimeout(function () {
+                    location.reload();
+                    document.getElementById('overlay').style.display = 'block';
+                }, 0);
+
+            },
+            error: function () {
+                console.log('Error swiping cubicles.');
+                setTimeout(function () {
+                    location.reload();
+                    document.getElementById('overlay').style.display = 'block';
+                }, 0);
+            }
+        });
+        document.getElementById('overlay').style.display = 'none';
+        checkCollisions();
+    }
+
+    var cells = document.querySelectorAll('#drag-drop-table .inner-cell');
+    [].forEach.call(cells, function (cell) {
+        cell.addEventListener('dragstart', handleDragStart, false);
+        cell.addEventListener('dragenter', handleDragEnter, false);
+        //cell.addEventListener('dragover', handleDragOver, false);
+        //cell.addEventListener('dragleave', handleDragLeave, false);
+        //cell.addEventListener('drop', handleDrop, false);
+        //cell.addEventListener('dragend', handleDragEnd, false);
+    });
+    var outercells = document.querySelectorAll('#drag-drop-table .cell');
+    [].forEach.call(outercells, function (outercells) {
+        outercells.addEventListener('dragover', handleDragOver, false);
+        outercells.addEventListener('dragleave', handleDragLeave, false);
+        outercells.addEventListener('drop', handleDrop, false);
+        outercells.addEventListener('dragend', handleDragEnd, false);
+    });
+    function checkCollisions() {
+        const parents = document.querySelectorAll('#drag-drop-table .cell');
+        for (var i = 0; i < parents.length; i++) {
+            if (parents[i].hasChildNodes()) {
+                const innerCellChild = parents[i].getElementsByClassName("inner-cell");
+                if (innerCellChild.length > 1) {
+                    parents[i].style.backgroundColor = "#DB1430";
+                } else if (innerCellChild.length == 1) {
+                    parents[i].style.backgroundColor = "#1BC5BD";
+                } else {
+                    parents[i].style.backgroundColor = "#FFF8DD";
+                }
+
+            } else {
+                parents[i].style.backgroundColor = "#FFF8DD";
+            }
+        }
+    }
+
+
+    document.body.style.userSelect = "none";</script>
+
+<!--<script>
+    var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/SetCubicles/Weekly");
+    link.innerText = "Set Cubicles";
+
+    if (prevPage.innerHTML == "") {
+        var prevPage = document.getElementById("prev-page-breadcrumb").appendChild(link);
+    }
+</script>-->

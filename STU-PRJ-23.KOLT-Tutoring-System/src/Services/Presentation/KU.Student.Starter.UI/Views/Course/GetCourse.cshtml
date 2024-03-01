@@ -1,0 +1,40 @@
+﻿@model KU.Student.Starter.UI.Models.Course
+
+@{
+    ViewData["Title"] = "Edit Course";
+}
+
+<form class="form" action="@Url.Action("EditCourse", "Course", new { id = Model.Id })" method="post">
+    <div class="header">Edit Course</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Code</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="Code" name="Code" placeholder="Enter Code" value="@Model.Code" class="input-box" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Name</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="Name" name="Name" placeholder="Enter Name" value="@Model.Name" class="input-box" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="Course" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Course/Course");
+    link.innerText = "Courses";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

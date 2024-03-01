@@ -1,0 +1,55 @@
+﻿@model KU.Student.Starter.UI.Models.Period
+
+@{
+    ViewData["Title"] = "Edit Period";
+}
+
+<form class="form" action="@Url.Action("EditPeriod", "Period" , new { id=Model.Id })" method="post">
+    <div class="header">Edit Period</div>
+
+    <div class="form-input">
+        <div class="form-label">
+            <label>Day</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <select id="Day" name="Day" value="@Model.Day" class="input-box">
+                <option value="@Model.Day" selected hidden>@Model.Day</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+            </select>
+            <span asp-validation-for="Day" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-input">
+        <div class="form-label">
+            <label>Start Hour</label>
+        </div>
+        <div class="input-div flex-col">
+            <input id="StartHour" name="StartHour" value="@Model.StartHour" type="time" class="input-box" placeholder="hh:mm" />
+            <span asp-validation-for="StartHour" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-input">
+        <div class="form-label">
+            <label>End Hour</label>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <input id="EndHour" name="EndHour" value="@Model.EndHour" type="time" class="input-box" placeholder="hh:mm" />
+            <span asp-validation-for="EndHour" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-buttons">
+        <button type="submit" class="btn primary-button">Save</button>
+        <a asp-action="Period" class="btn secondary-button">Cancel</a>
+    </div>
+</form>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Period/Period");
+    link.innerText = "Periods";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>

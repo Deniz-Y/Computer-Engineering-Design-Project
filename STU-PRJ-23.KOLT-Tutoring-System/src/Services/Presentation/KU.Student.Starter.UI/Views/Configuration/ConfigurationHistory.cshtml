@@ -1,0 +1,38 @@
+﻿@model IEnumerable<KU.Student.Starter.UI.Models.ViewModel.ConfigurationViewModel>
+
+@{
+    ViewData["Title"] = "Configuration History";
+
+}
+<div class="form info-form">
+    <div class="header">Configuration History</div>
+
+    @foreach (var configuration in Model)
+    {
+        <div class="form-input">
+            <div class="form-label">
+                <label>@configuration.UserName</label>
+            </div>
+            <div class="form-label">
+                <label>@configuration.EditDateTime</label>
+            </div>
+            <div class="form-label" style="width:fit-content;">
+                <a href="/Configuration/ViewConfiguration/@configuration.Id" class="btn secondary-button" style="width:32px; height: 32px;"><img src="/assets/media/icons/details.svg" style="width:16px;" /></a>
+            </div>
+        </div>
+    }
+
+    <div class="form-buttons">
+        <a href="/Configuration/Configuration" class="btn primary-button">Back</a>
+    </div>
+
+</div>
+
+<script>var link = document.createElement("a");
+    link.setAttribute("class", "nav-link past-link");
+    link.setAttribute("href", "/Configuration/Configuration");
+    link.innerText = "Configuration";
+    document.getElementById("prev-page-breadcrumb").appendChild(link);</script>
+
+
+
